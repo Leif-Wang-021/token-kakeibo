@@ -1,9 +1,7 @@
 export 'webview_plugin.dart';
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
@@ -67,7 +65,7 @@ class WinWebViewPermissionRequest extends PlatformWebViewPermissionRequest {
   @override
   Future<void> grant() async {
     if (_isDone) {
-      print(
+      log(
         "[webview_win_floating] WinWebViewPermissionRequest: already called grant() or deny() before. ignored",
       );
       return;
@@ -80,7 +78,7 @@ class WinWebViewPermissionRequest extends PlatformWebViewPermissionRequest {
   @override
   Future<void> deny() async {
     if (_isDone) {
-      print(
+      log(
         "[webview_win_floating] WinWebViewPermissionRequest: already called grant() or deny() before. ignored",
       );
       return;
@@ -92,7 +90,7 @@ class WinWebViewPermissionRequest extends PlatformWebViewPermissionRequest {
 
   Future<void> denyIfNoAction() async {
     if (_isDone) return;
-    print(
+    log(
         "[webview_win_floating] onPermissionRequest() doesn't call grant() or deny()!");
     _controller.grantPermission(_deferralId, false);
     _isDone = true;
@@ -111,7 +109,7 @@ class WinSslAuthError extends PlatformSslAuthError {
 
   @override
   Future<void> proceed() async {
-    print(
+    log(
         "[webview_win_floating] onSslAuthError(): WinSslAuthError.proceed() do nothing. Always skip websites with ssl auth error");
   }
 }
@@ -142,8 +140,7 @@ typedef AskPermissionCallback = bool Function(
 class WinWebViewWidget extends StatefulWidget {
   final WinWebViewController controller;
 
-  const WinWebViewWidget({Key? key, required this.controller})
-      : super(key: key);
+  const WinWebViewWidget({super.key, required this.controller});
 
   @override
   State<StatefulWidget> createState() => _WinWebViewWidgetState();

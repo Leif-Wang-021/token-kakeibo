@@ -1,9 +1,45 @@
 # Token家计薄 — 完整开发日志（供 AI 接手参考）
 
 > 项目：`F:\Codex Project\Token display\token_kakeibo`
-> 类型：Flutter Windows 桌面应用（单 opencode 账户多模型用量查看器）
-> 最后更新：2026-08-10
+> 类型：Flutter 多端应用（单 opencode 账户多模型用量查看器，Windows / Android / macOS）
+> 最后更新：2026-08-11
 > 本日志从零开始记录全部开发过程、逆向工程成果、架构决策与已知坑，供后续 AI 或开发者无缝接手。
+
+## 开发方式：Vibe Coding
+
+本项目由 **Vibe Coding** 方式开发：人类负责产品方向、需求、验收与发布，AI 负责代码生成、调试和持续迭代。
+所有代码均由 AI 辅助编写，人类在每一轮给出业务判断和视觉反馈；界面大量借鉴 Kazumi 的 Material 3
+结构与交互，配色、字体和文案做了独立设计。详见 `README.md` 与 `THIRD_PARTY_NOTICES.md`。
+
+## 0. 2026-08-11 发布前整理（项目主页 / 更新检查 / 清理归档）
+
+### 0.1 功能新增
+- **项目主页可填写**：关于页“项目主页”显示当前 GitHub 地址，点击可编辑；保存到本地设置，默认指向
+  `https://github.com/Leif-Wang-021/token-kakeibo`。
+- **GitHub Release 检查更新**：设置 → 关于 → 应用更新 → 检查更新，从 GitHub Releases API 获取最新版本，
+  比较版本号后提示“已是最新”或展示 Release 更新内容并打开 Release 页面。
+- **统一二级菜单标题**：所有二级页 AppBar 标题统一走 `WafuTheme.appBarTheme.titleTextStyle`
+  （headlineMedium + w700 + titleSpacing 24），移除各页面散落的 20px / 默认样式覆盖。
+- **跨平台打开链接**：新增 `url_launcher`，关于页和更新页在 Windows / Android / macOS 上都能打开外部链接。
+
+### 0.2 代码清理
+- 删除 `settings_subpages.dart` 中从未使用的旧 `AboutPage` 副本，设置页改用独立 `about_page.dart`。
+- 移走仓库内不再使用的 ZenMaruGothic / ZenOldMincho 字体、旧 OFL 文件、第三方插件备份和截图。
+- `dart analyze` 达到 **No issues found**：顺手清掉第三方插件里的 unused import、print、deprecated Color.value 等。
+- `flutter test`：16/16 通过。
+
+### 0.3 目录归位与鸿蒙留档
+- `F:\Codex` 下的旧构建副本和 `F:\token_kakeibo_build` 旧项目已移动到
+  `F:\Codex Project\Token display\_moved_old_builds\`，工作区外不再散落本项目内容。
+- HarmonyOS / OpenHarmony 相关文件统一归档到
+  `F:\Codex Project\Token display\archive\harmonyos\`，并写 `README.md` 注明“已暂停，仅留档”。
+- 主项目只保留 Windows、Android、macOS 三个目标。
+
+### 0.4 文档与发布
+- `README.md` 重写为详细版：功能介绍、截图、Vibe Coding 说明、Kazumi 借鉴声明、目录结构、构建方法、
+  数据目录、许可证和免责声明。
+- `docs/screenshots/` 放入使用量浅色 / 深色、历史页和应用图标截图。
+- 完成后推送 GitHub，并发布 Windows / Android / 源码 Release。
 
 ---
 
@@ -85,6 +121,7 @@ dependencies:
   http: ^1.6.0            # API 请求
   provider: ^6.1.5        # 状态管理（ChangeNotifier）
   fl_chart: ^1.2.0        # 柱状图（2026-08-10 从手绘迁移）
+  url_launcher: ^6.3.1    # 跨平台打开项目主页 / Release 页面
   webview_flutter: ^4.13.1
   webview_win_floating: ^3.0.3  # Windows WebView2（vendor 于 third_party/，含 getCookies 原生扩展）
   flutter_desktop_notifications: ^1.1.2  # Windows toast 通知
@@ -113,7 +150,8 @@ lib/
 │   ├── session_store.dart    # 登录态持久化（%LOCALAPPDATA%\token_kakeibo\opencode_session.json）
 │   ├── notification_service.dart  # toast 通知（AUMID 注册）
 │   ├── webdav_sync.dart      # WebDAV PUT/GET/MKCOL
-│   └── app_logger.dart / app_paths.dart
+│   ├── app_logger.dart / app_paths.dart
+│   └── app_info.dart / update_service.dart  # 版本、项目主页、GitHub 更新检查
 ├── state/app_state.dart      # 全局状态：会话/主题/预警阈值/自动刷新/WebDAV
 ├── pages/
 │   ├── dashboard_page.dart   # 主界面（Go 用量条 + Cost 图 + 模型消耗）

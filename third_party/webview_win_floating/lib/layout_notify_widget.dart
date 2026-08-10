@@ -22,10 +22,10 @@ class WidgetLayoutWrapper extends SingleChildRenderObjectWidget {
   final OnWidgetLayoutChange onLayoutChange;
 
   const WidgetLayoutWrapper({
-    Key? key,
+    super.key,
     required this.onLayoutChange,
     required Widget child,
-  }) : super(key: key, child: child);
+  }) : super(child: child);
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -38,10 +38,10 @@ class WidgetLayoutWrapperWithScroll extends StatefulWidget {
   final Widget child;
 
   const WidgetLayoutWrapperWithScroll({
-    Key? key,
+    super.key,
     required this.onLayoutChange,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _WidgetLayoutWrapperWithScrollState();

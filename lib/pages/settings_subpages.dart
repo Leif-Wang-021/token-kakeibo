@@ -5,7 +5,6 @@ import '../l10n/context_l10n.dart';
 import '../models/sync_config.dart';
 import '../models/theme_preference.dart';
 import '../state/app_state.dart';
-import 'log_viewer_page.dart';
 
 /// 设置二级页公共 Scaffold（kazumi SettingsDetailScaffold 风格）。
 class _Scaffold extends StatelessWidget {
@@ -18,14 +17,7 @@ class _Scaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        titleSpacing: 24,
+        title: Text(title),
         scrolledUnderElevation: 0,
       ),
       body: ListView(
@@ -208,29 +200,31 @@ class AutoRefreshPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Column(
-              children: [
-                for (var i = 0; i < _options.length; i++) ...[
-                  if (i > 0)
-                    Divider(
-                      height: 1,
-                      color: Theme.of(context).colorScheme.outlineVariant,
+            child: RadioGroup<int>(
+              groupValue: state.autoRefreshMinutes,
+              onChanged: (v) {
+                if (v != null) state.setAutoRefreshMinutes(v);
+              },
+              child: Column(
+                children: [
+                  for (var i = 0; i < _options.length; i++) ...[
+                    if (i > 0)
+                      Divider(
+                        height: 1,
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                      ),
+                    RadioListTile<int>(
+                      value: _options[i],
+                      title: Text(
+                        _options[i] == 0
+                            ? s.refreshOff
+                            : s.refreshMinutes(_options[i]),
+                        style: const TextStyle(fontSize: 14),
+                      ),
                     ),
-                  RadioListTile<int>(
-                    value: _options[i],
-                    groupValue: state.autoRefreshMinutes,
-                    onChanged: (v) {
-                      if (v != null) state.setAutoRefreshMinutes(v);
-                    },
-                    title: Text(
-                      _options[i] == 0
-                          ? s.refreshOff
-                          : s.refreshMinutes(_options[i]),
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ],
@@ -717,119 +711,6 @@ class _SyncPageState extends State<SyncPage> {
     final l = t.toLocal();
     return '${l.month}/${l.day} ${l.hour.toString().padLeft(2, '0')}:'
         '${l.minute.toString().padLeft(2, '0')}';
-  }
-}
-
-/// 关于：版本号连点 5 次开启开发者模式。
-class AboutPage extends StatefulWidget {
-  const AboutPage({super.key});
-
-  @override
-  State<AboutPage> createState() => _AboutPageState();
-}
-
-class _AboutPageState extends State<AboutPage> {
-  int _tapCount = 0;
-  DateTime? _lastTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = context.l10n;
-    final state = context.read<AppState>();
-    return _Scaffold(
-      title: s.aboutTitle,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainer,
-              border: Border.all(
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                Icon(
-                  Icons.menu_book,
-                  size: 44,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Token家计薄',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  s.aboutDesc,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                const SizedBox(height: 16),
-                // 版本号：连点 5 次开启开发者模式
-                InkWell(
-                  onTap: () => _handleTap(context),
-                  borderRadius: BorderRadius.circular(8),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    child: Text(
-                      '${s.version} 1.2.0',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ),
-                ),
-                if (!state.devMode) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    s.aboutTapHint,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextButton.icon(
-            onPressed: () => Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (_) => const LogViewerPage())),
-            icon: const Icon(Icons.article_outlined, size: 18),
-            label: Text(s.settingsLogs),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _handleTap(BuildContext context) {
-    final now = DateTime.now();
-    if (_lastTap != null &&
-        now.difference(_lastTap!) > const Duration(seconds: 2)) {
-      _tapCount = 0;
-    }
-    _lastTap = now;
-    _tapCount++;
-    if (_tapCount >= 5) {
-      _tapCount = 0;
-      final state = context.read<AppState>();
-      state.setDevMode(true);
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.aboutDevOpened)));
-    }
   }
 }
 

@@ -5,7 +5,7 @@ import os
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "dist", "TokenKakeibo-1.2.0-macos-test-source.zip")
+OUT = os.path.join(ROOT, "dist", "TokenKakeibo-1.2.0-macos-source.zip")
 
 EXCLUDED_DIRS = {
     ".git",
@@ -13,11 +13,9 @@ EXCLUDED_DIRS = {
     ".idea",
     "build",
     "dist",
-    "google_fonts_ref",
-    "kazumi_reference",
-    "_archive_ohos_flutter",
-    "old_icons",
     "output",
+    "archive",
+    "_moved_old_builds",
 }
 
 EXCLUDED_FILES = {
@@ -28,18 +26,6 @@ EXCLUDED_FILES = {
     "bailian_home.html",
     "help_usage.html",
 }
-
-UNUSED_FONTS = {
-    "ZenMaruGothic-Regular.ttf",
-    "ZenMaruGothic-Medium.ttf",
-    "ZenMaruGothic-Bold.ttf",
-    "ZenOldMincho-Regular.ttf",
-    "ZenOldMincho-Medium.ttf",
-    "ZenOldMincho-SemiBold.ttf",
-    "ZenOldMincho-Bold.ttf",
-    "HarmonyOS_Sans_SC_Thin.ttf",
-}
-
 
 def main():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
@@ -52,7 +38,7 @@ def main():
             if any(part in EXCLUDED_DIRS for part in parts):
                 continue
             for name in filenames:
-                if name in EXCLUDED_FILES or name in UNUSED_FONTS:
+                if name in EXCLUDED_FILES:
                     continue
                 src = os.path.join(dirpath, name)
                 arc = os.path.join("token_kakeibo", rel, name)

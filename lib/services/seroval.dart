@@ -176,7 +176,7 @@ class Seroval {
 ///
 /// 输入：`((self.$R=self.$R||{})["server-fn:0"]=[],($R=>$R[0]=<expr>))($R["server-fn:0"]))`
 /// 或后续 chunk（`<expr>` 直接续接引用定义）。
-/// 输出：<expr> 解析后的值（对象/数组/字符串/数字/布尔/null）。
+/// 输出：`expr` 解析后的值（对象/数组/字符串/数字/布尔/null）。
 class _JsStreamDecoder {
   final Map<int, dynamic> _refs = {};
 

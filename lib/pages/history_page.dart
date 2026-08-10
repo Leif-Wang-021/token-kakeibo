@@ -45,12 +45,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          s.usageTitle,
-          style: Theme.of(
-            context,
-          ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w700),
-        ),
+        title: Text(s.usageTitle),
         actions: [
           IconButton(
             tooltip: s.refresh,

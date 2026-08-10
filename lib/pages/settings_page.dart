@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../l10n/context_l10n.dart';
 import 'about_page.dart';
-import 'settings_subpages.dart' hide AboutPage;
+import 'settings_subpages.dart'
+    show AccountPage, AppearancePage, AutoRefreshPage, AlertPage, SyncPage;
 
 /// Kazumi 风格设置主页：分组标题 + 圆角分裂卡片。
 class SettingsPage extends StatelessWidget {

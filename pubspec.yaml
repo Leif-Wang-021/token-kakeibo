@@ -1,5 +1,5 @@
 name: token_kakeibo
-description: "Token家计薄 — 集中管理多个 AI 供应商 token 用量（Flutter Windows）"
+description: "Token家计薄 — 本地优先的 OpenCode Go 套餐用量与成本查看器"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.0+1
+version: 1.2.0+1
 
 environment:
   sdk: ^3.9.2
@@ -38,6 +38,7 @@ dependencies:
   fl_chart: ^1.2.0
   dynamic_color: ^1.7.0
   path_provider: ^2.1.5
+  url_launcher: ^6.3.1
   webview_flutter: ^4.13.1
   webview_win_floating: ^3.0.3
   cryptography: ^2.9.0
@@ -55,7 +56,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 # 本地 vendor 的 webview_win_floating（新增 getCookies 原生 API，
-# 用于读取 WebView2 的 httpOnly cookie，cookie 会话鉴权站点如 MiniMax）。
+# 用于读取 WebView2 的 httpOnly cookie，OpenCode 登录会话鉴权需要）。
 dependency_overrides:
   webview_win_floating:
     path: third_party/webview_win_floating

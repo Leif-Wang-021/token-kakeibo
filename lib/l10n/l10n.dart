@@ -206,9 +206,24 @@ class L10n {
     'aboutLogsDesc': '查看最近的应用日志',
     'aboutOpenDir': '打开数据目录',
     'aboutProjectHome': '项目主页',
-    'aboutProjectHomeDesc': 'OpenCode 官方入口',
+    'aboutProjectHomeDesc': '项目源码与 Release 地址，点击填写或打开',
     'aboutUpdate': '应用更新',
     'aboutCurrentVersion': '当前版本',
+    'updateCheck': '检查更新',
+    'updateCheckDesc': '从 GitHub Releases 检查新版本',
+    'updateChecking': '检查中…',
+    'updateAvailable': '发现新版本',
+    'updateNoUpdate': '当前已是最新版本',
+    'updateCurrent': '当前版本',
+    'updateLatest': '最新版本',
+    'updateReleaseNotes': '更新内容',
+    'updateOpenRelease': '打开 Release',
+    'updateFailed': '检查更新失败，请稍后重试',
+    'projectHomePlaceholder': 'https://github.com/...',
+    'projectHomeSaved': '项目主页已保存',
+    'projectHomeInvalid': '请输入有效的 http(s) 地址',
+    'open': '打开',
+    'save': '保存',
     'devDisable': '关闭开发者模式',
     'devDisableDesc': '退出开发者模式并隐藏开发者选项',
 
@@ -374,9 +389,24 @@ class L10n {
     'aboutLogsDesc': '查看最近的應用日誌',
     'aboutOpenDir': '開啟資料目錄',
     'aboutProjectHome': '專案首頁',
-    'aboutProjectHomeDesc': 'OpenCode 官方入口',
+    'aboutProjectHomeDesc': '專案原始碼與 Release 位址，點擊填寫或開啟',
     'aboutUpdate': '應用程式更新',
     'aboutCurrentVersion': '目前版本',
+    'updateCheck': '檢查更新',
+    'updateCheckDesc': '從 GitHub Releases 檢查新版本',
+    'updateChecking': '檢查中…',
+    'updateAvailable': '發現新版本',
+    'updateNoUpdate': '目前已是最新版本',
+    'updateCurrent': '目前版本',
+    'updateLatest': '最新版本',
+    'updateReleaseNotes': '更新內容',
+    'updateOpenRelease': '開啟 Release',
+    'updateFailed': '檢查更新失敗，請稍後重試',
+    'projectHomePlaceholder': 'https://github.com/...',
+    'projectHomeSaved': '專案首頁已儲存',
+    'projectHomeInvalid': '請輸入有效的 http(s) 位址',
+    'open': '開啟',
+    'save': '儲存',
     'devDisable': '關閉開發者模式',
     'devDisableDesc': '退出開發者模式並隱藏開發者選項',
 
@@ -542,9 +572,24 @@ class L10n {
     'aboutLogsDesc': '最近のアプリログを表示',
     'aboutOpenDir': 'データディレクトリを開く',
     'aboutProjectHome': 'プロジェクトホーム',
-    'aboutProjectHomeDesc': 'OpenCode 公式エントリー',
+    'aboutProjectHomeDesc': 'ソースコードと Release の URL。タップで編集・表示',
     'aboutUpdate': 'アプリ更新',
     'aboutCurrentVersion': '現在のバージョン',
+    'updateCheck': '更新を確認',
+    'updateCheckDesc': 'GitHub Releases から新しいバージョンを確認',
+    'updateChecking': '確認中…',
+    'updateAvailable': '新しいバージョンがあります',
+    'updateNoUpdate': '現在は最新バージョンです',
+    'updateCurrent': '現在のバージョン',
+    'updateLatest': '最新バージョン',
+    'updateReleaseNotes': '更新内容',
+    'updateOpenRelease': 'Release を開く',
+    'updateFailed': '更新確認に失敗しました。後でもう一度お試しください',
+    'projectHomePlaceholder': 'https://github.com/...',
+    'projectHomeSaved': 'プロジェクトホームを保存しました',
+    'projectHomeInvalid': '有効な http(s) URL を入力してください',
+    'open': '開く',
+    'save': '保存',
     'devDisable': '開発者モードをオフ',
     'devDisableDesc': '開発者モードを終了し、開発者オプションを隠す',
 
@@ -711,9 +756,24 @@ class L10n {
     'aboutLogsDesc': 'View recent application logs',
     'aboutOpenDir': 'Open data directory',
     'aboutProjectHome': 'Project home',
-    'aboutProjectHomeDesc': 'Official OpenCode entry',
+    'aboutProjectHomeDesc': 'Source code and Release URL; tap to edit or open',
     'aboutUpdate': 'App updates',
     'aboutCurrentVersion': 'Current version',
+    'updateCheck': 'Check for Updates',
+    'updateCheckDesc': 'Check GitHub Releases for a new version',
+    'updateChecking': 'Checking…',
+    'updateAvailable': 'Update Available',
+    'updateNoUpdate': 'You are up to date',
+    'updateCurrent': 'Current version',
+    'updateLatest': 'Latest version',
+    'updateReleaseNotes': 'Release notes',
+    'updateOpenRelease': 'Open Release',
+    'updateFailed': 'Could not check for updates. Please try again later',
+    'projectHomePlaceholder': 'https://github.com/...',
+    'projectHomeSaved': 'Project home saved',
+    'projectHomeInvalid': 'Enter a valid http(s) URL',
+    'open': 'Open',
+    'save': 'Save',
     'devDisable': 'Disable developer mode',
     'devDisableDesc': 'Exit developer mode and hide developer options',
 
@@ -904,6 +964,21 @@ class L10n {
   String get aboutProjectHomeDesc => t('aboutProjectHomeDesc');
   String get aboutUpdate => t('aboutUpdate');
   String get aboutCurrentVersion => t('aboutCurrentVersion');
+  String get updateCheck => t('updateCheck');
+  String get updateCheckDesc => t('updateCheckDesc');
+  String get updateChecking => t('updateChecking');
+  String get updateAvailable => t('updateAvailable');
+  String get updateNoUpdate => t('updateNoUpdate');
+  String get updateCurrent => t('updateCurrent');
+  String get updateLatest => t('updateLatest');
+  String get updateReleaseNotes => t('updateReleaseNotes');
+  String get updateOpenRelease => t('updateOpenRelease');
+  String get updateFailed => t('updateFailed');
+  String get projectHomePlaceholder => t('projectHomePlaceholder');
+  String get projectHomeSaved => t('projectHomeSaved');
+  String get projectHomeInvalid => t('projectHomeInvalid');
+  String get open => t('open');
+  String get save => t('save');
   String get devDisable => t('devDisable');
   String get devDisableDesc => t('devDisableDesc');
 

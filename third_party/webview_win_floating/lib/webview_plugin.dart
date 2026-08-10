@@ -54,8 +54,8 @@ class WindowsPlatformNavigationDelegate extends PlatformNavigationDelegate {
   UrlChangedCallback? onUrlChange;
 
   WindowsPlatformNavigationDelegate(
-    PlatformNavigationDelegateCreationParams params,
-  ) : super.implementation(params);
+    super.params,
+  ) : super.implementation();
 
   @override
   Future<void> setOnNavigationRequest(
@@ -116,8 +116,7 @@ class WindowsPlatformWebViewWidgetCreationParams
 }
 
 class WindowsPlatformWebViewWidget extends PlatformWebViewWidget {
-  WindowsPlatformWebViewWidget(PlatformWebViewWidgetCreationParams params)
-      : super.implementation(params);
+  WindowsPlatformWebViewWidget(super.params) : super.implementation();
 
   @override
   Widget build(BuildContext context) {
@@ -171,8 +170,8 @@ class WindowsPlatformWebViewController extends PlatformWebViewController {
   late final WinWebViewController controller;
 
   WindowsPlatformWebViewController(
-    PlatformWebViewControllerCreationParams params,
-  ) : super.implementation(params) {
+    super.params,
+  ) : super.implementation() {
     controller = WinWebViewController(params: params);
   }
 
@@ -329,8 +328,8 @@ class WindowsPlatformWebViewController extends PlatformWebViewController {
   }
 
   @override
-  Future<void> enableZoom(bool isEnable) {
-    return controller.enableZoom(isEnable);
+  Future<void> enableZoom(bool enabled) {
+    return controller.enableZoom(enabled);
   }
 
   // ------------------------------------------------------------------------

@@ -14,6 +14,7 @@ import '../services/notification_service.dart';
 import '../services/opencode_api.dart';
 import '../services/session_store.dart';
 import '../services/webdav_sync.dart';
+import '../services/app_info.dart';
 
 /// Go 套餐预警阈值（百分比），三个维度可独立设置。
 class AlertThresholds {
@@ -92,6 +93,9 @@ class AppState extends ChangeNotifier {
   /// WebDAV 同步配置。
   WebDavConfig syncConfig = const WebDavConfig();
 
+  /// 项目主页（关于页可编辑，默认指向 GitHub 仓库）。
+  String projectHomeUrl = kProjectHomeUrl;
+
   /// 是否正在同步。
   bool syncing = false;
 
@@ -137,6 +141,10 @@ class AppState extends ChangeNotifier {
       );
       syncConfig = WebDavConfig.fromJson(
         Map<String, dynamic>.from((settings['syncConfig'] as Map?) ?? const {}),
+      );
+      projectHomeUrl = _validUrl(
+        settings['projectHomeUrl']?.toString(),
+        fallback: kProjectHomeUrl,
       );
       if (session != null) {
         await _loadUsageCache();
@@ -347,6 +355,13 @@ class AppState extends ChangeNotifier {
     }
   }
 
+  /// 设置项目主页（空值回退到 GitHub 默认地址）。
+  Future<void> setProjectHomeUrl(String url) async {
+    projectHomeUrl = _validUrl(url, fallback: kProjectHomeUrl);
+    await _saveSettings();
+    notifyListeners();
+  }
+
   /// 执行 WebDAV 同步：先拉取远端（若远端较新则合并），再上传本地。
   Future<void> syncNow({bool silent = false}) async {
     if (syncing) return;
@@ -399,6 +414,7 @@ class AppState extends ChangeNotifier {
     'autoRefreshMinutes': autoRefreshMinutes,
     'devMode': devMode,
     'alertThresholds': alertThresholds.toJson(),
+    'projectHomeUrl': projectHomeUrl,
   };
 
   Future<void> _applyRemoteSettings(Map<String, dynamic> remote) async {
@@ -416,6 +432,10 @@ class AppState extends ChangeNotifier {
         (remoteSync['url']?.toString().isNotEmpty ?? false)) {
       syncConfig = WebDavConfig.fromJson(Map<String, dynamic>.from(remoteSync));
     }
+    projectHomeUrl = _validUrl(
+      remote['projectHomeUrl']?.toString(),
+      fallback: projectHomeUrl,
+    );
     _restartAutoRefresh();
     notifyListeners();
   }
@@ -601,11 +621,24 @@ class AppState extends ChangeNotifier {
           'devMode': devMode,
           'alertThresholds': alertThresholds.toJson(),
           'syncConfig': syncConfig.toJson(),
+          'projectHomeUrl': projectHomeUrl,
         }),
         flush: true,
       );
     } catch (e) {
       AppLogger.w('save settings failed: $e');
     }
+  }
+
+  static String _validUrl(String? raw, {required String fallback}) {
+    final value = raw?.trim() ?? '';
+    if (value.isEmpty) return fallback;
+    final uri = Uri.tryParse(value);
+    if (uri == null ||
+        !(uri.scheme == 'http' || uri.scheme == 'https') ||
+        uri.host.isEmpty) {
+      return fallback;
+    }
+    return value;
   }
 }

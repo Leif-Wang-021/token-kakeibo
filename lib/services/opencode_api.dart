@@ -7,7 +7,7 @@ import 'seroval.dart';
 
 /// opencode.ai console 的 server-function RPC 客户端。
 ///
-/// 端点：`POST https://opencode.ai/_server?id=<serverFunctionId>`
+/// 端点：`POST https://opencode.ai/_server`，函数 ID 走 `X-Server-Id` 请求头。
 /// 鉴权：登录后 WebView2 提取的 session cookie（同源请求自动携带）。
 /// 请求体：seroval cross-JSON（见 [Seroval]）。
 class OpenCodeApi {
@@ -28,7 +28,7 @@ class OpenCodeApi {
   static const querySessionInfoId =
       '9bc4808361cdaee17059a8d3822b36ee8c9a0d93f1adc289fa1926998e3c9768';
 
-  /// Go 套餐用量（5h/周/月限制）——workspace/<id>/go 页面数据源。
+  /// Go 套餐用量（5h/周/月限制）——`workspace/[workspaceId]/go` 页面数据源。
   static const queryLiteSubscriptionId =
       'c7389bd0e731f80f49593e5ee53835475f4e28594dd6bd83eb229bab753498cd';
 

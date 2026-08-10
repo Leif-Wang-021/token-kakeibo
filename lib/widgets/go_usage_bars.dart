@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/context_l10n.dart';
 import '../models/opencode_data.dart';
 
-/// Go 套餐用量限制条（照 opencode.ai/workspace/<id>/go 页面）：
+/// Go 套餐用量限制条（照 `opencode.ai/workspace/[workspaceId]/go` 页面）：
 /// 滚动用量（5 小时）/ 每周用量 / 每月用量，各带百分比 + 进度条 + 重置时间。
 class GoUsageBars extends StatelessWidget {
   const GoUsageBars({super.key, required this.subscription});

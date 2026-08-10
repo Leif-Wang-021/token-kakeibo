@@ -15,7 +15,7 @@ import '../state/app_state.dart';
 /// OpenCode 应用内登录页（Windows WebView2）。
 ///
 /// 流程：WebView2 打开 opencode.ai → 用户 GitHub/Google 登录 →
-/// 登录成功跳转到 /workspace/<id>/... → 自动提取 workspace ID 与
+/// 登录成功跳转到 `/workspace/[workspaceId]/...` → 自动提取 workspace ID 与
 /// session cookie（含 httpOnly）→ 调 checkSession 验证 → 保存会话。
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

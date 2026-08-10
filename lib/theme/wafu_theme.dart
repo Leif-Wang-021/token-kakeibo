@@ -47,6 +47,7 @@ class WafuTheme {
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         centerTitle: false,
+        titleSpacing: 24,
         titleTextStyle: base.textTheme.headlineMedium?.copyWith(
           color: scheme.onSurface,
           fontWeight: FontWeight.w700,
