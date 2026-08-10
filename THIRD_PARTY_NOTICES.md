@@ -19,3 +19,8 @@ This project is licensed under the GNU General Public License v3.0.
 
 All Dart/Flutter dependencies are published on pub.dev under their own
 licenses (MIT, BSD, Apache-2.0, etc.). See the in-app license page for details.
+
+Notable dependencies:
+
+- refresh_rate - BSD 3-Clause
+  Used to unlock the highest display refresh rate on high-refresh-rate devices.

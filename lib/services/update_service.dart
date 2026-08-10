@@ -54,7 +54,7 @@ class UpdateService {
     }
   }
 
-  /// 将 Release tag（`v1.2.0` / `1.2.0`）与当前版本比较。
+  /// 将 Release tag（`v1.2.1` / `1.2.1`）与当前版本比较。
   static bool isNewer(String releaseTag, String currentVersion) {
     final a = _parse(releaseTag);
     final b = _parse(currentVersion);

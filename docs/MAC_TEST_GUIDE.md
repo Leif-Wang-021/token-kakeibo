@@ -20,8 +20,8 @@ flutter doctor
 1. 把完整源码包解压：
 
 ```bash
-unzip TokenKakeibo-1.2.0-macos-source.zip
-cd TokenKakeibo-1.2.0-macos-test-source/token_kakeibo
+unzip TokenKakeibo-1.2.1-macos-source.zip
+cd TokenKakeibo-1.2.1-macos-source/token_kakeibo
 ```
 
 2. 安装依赖：

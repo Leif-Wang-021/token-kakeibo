@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:refresh_rate/refresh_rate.dart';
 
 import 'app.dart';
 import 'services/app_paths.dart';
@@ -13,6 +14,10 @@ import 'state/app_state.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    // 在支持 120Hz / 高刷的设备上解锁最高刷新率；低刷新率设备无副作用。
+    RefreshRate.enable();
+  } catch (_) {}
   try {
     await _registerLicenses();
     final directory = await AppPaths.dataDirectory();

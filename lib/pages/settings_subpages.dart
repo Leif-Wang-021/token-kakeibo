@@ -7,8 +7,12 @@ import '../models/theme_preference.dart';
 import '../state/app_state.dart';
 
 /// 设置二级页公共 Scaffold（kazumi SettingsDetailScaffold 风格）。
-class _Scaffold extends StatelessWidget {
-  const _Scaffold({required this.title, required this.child});
+class SettingsDetailScaffold extends StatelessWidget {
+  const SettingsDetailScaffold({
+    super.key,
+    required this.title,
+    required this.child,
+  });
 
   final String title;
   final Widget child;
@@ -16,10 +20,7 @@ class _Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        scrolledUnderElevation: 0,
-      ),
+      appBar: AppBar(title: Text(title), scrolledUnderElevation: 0),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
@@ -43,7 +44,7 @@ class AppearancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.l10n;
     final state = context.watch<AppState>();
-    return _Scaffold(
+    return SettingsDetailScaffold(
       title: s.settingsAppearance,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,7 +185,7 @@ class AutoRefreshPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.l10n;
     final state = context.watch<AppState>();
-    return _Scaffold(
+    return SettingsDetailScaffold(
       title: s.settingsAutoRefresh,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,7 +243,7 @@ class AccountPage extends StatelessWidget {
     final s = context.l10n;
     final state = context.watch<AppState>();
     final session = state.session;
-    return _Scaffold(
+    return SettingsDetailScaffold(
       title: s.settingsAccountInfo,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,7 +365,7 @@ class _AlertPageState extends State<AlertPage> {
   Widget build(BuildContext context) {
     final s = context.l10n;
     final state = context.read<AppState>();
-    return _Scaffold(
+    return SettingsDetailScaffold(
       title: s.alertTitle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,7 +473,7 @@ class DevPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.l10n;
     final state = context.read<AppState>();
-    return _Scaffold(
+    return SettingsDetailScaffold(
       title: s.devTitle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -596,7 +597,7 @@ class _SyncPageState extends State<SyncPage> {
   Widget build(BuildContext context) {
     final s = context.l10n;
     final state = context.watch<AppState>();
-    return _Scaffold(
+    return SettingsDetailScaffold(
       title: s.syncTitle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   flutter_desktop_notifications
   fullscreen_window
+  refresh_rate
   url_launcher_windows
   webview_win_floating
 )

@@ -8,6 +8,7 @@ import Foundation
 import dynamic_color
 import flutter_desktop_notifications
 import path_provider_foundation
+import refresh_rate
 import url_launcher_macos
 import webview_flutter_wkwebview
 
@@ -15,6 +16,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   DynamicColorPlugin.register(with: registry.registrar(forPlugin: "DynamicColorPlugin"))
   FlutterDesktopNotificationsPlugin.register(with: registry.registrar(forPlugin: "FlutterDesktopNotificationsPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
+  RefreshRatePlugin.register(with: registry.registrar(forPlugin: "RefreshRatePlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
   WebViewFlutterPlugin.register(with: registry.registrar(forPlugin: "WebViewFlutterPlugin"))
 }

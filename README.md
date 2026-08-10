@@ -21,6 +21,7 @@ Token家计薄用于集中查看 **opencode.ai** 的 Go 套餐用量：
 - 简体中文、繁體中文、日本語、English 四语言
 - 和纸 / 墨色两套主题，内置 Noto Serif SC 可变字体
 - 应用内检查更新，从 GitHub Releases 获取最新版本
+- 支持 120Hz / ProMotion 高刷新率，高刷设备上自动解锁最高刷新率
 
 ## 项目说明
 
@@ -51,7 +52,7 @@ Token家计薄用于集中查看 **opencode.ai** 的 Go 套餐用量：
 
 - 设置页分组：账户 / 通用 / 其他
 - 关于页：开源许可、项目主页、数据目录、日志、当前版本、检查更新
-- 关于页“项目主页”可填写自定义 GitHub / 项目地址
+- 关于页“项目主页”点击直接打开 GitHub 仓库
 - 点击当前版本 5 次开启开发者模式，开发者页面可发送测试通知
 
 ## 技术栈
@@ -61,6 +62,7 @@ Token家计薄用于集中查看 **opencode.ai** 的 Go 套餐用量：
 | 应用框架 | Flutter / Dart 3.9+ / Material 3 |
 | 状态管理 | provider + ChangeNotifier |
 | 图表 | fl_chart 1.2+ |
+| 高刷新率 | refresh_rate |
 | 登录与 WebView | webview_flutter + vendored webview_win_floating（含 getCookies 原生扩展） |
 | 通知 | Windows toast（AUMID）+ Android 原生 MethodChannel |
 | 数据存储 | `%LOCALAPPDATA%/token_kakeibo`（Windows）、应用支持目录（其他平台） |
@@ -109,9 +111,9 @@ flutter build apk --release
 
 ```text
 dist/
-├── TokenKakeibo-1.2.0-windows-setup.exe
-├── TokenKakeibo-1.2.0-android.apk
-└── TokenKakeibo-1.2.0-macos-source.zip
+├── TokenKakeibo-1.2.1-windows-setup.exe
+├── TokenKakeibo-1.2.1-android.apk
+└── TokenKakeibo-1.2.1-macos-source.zip
 ```
 
 ### macOS

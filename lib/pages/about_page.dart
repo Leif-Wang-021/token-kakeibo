@@ -11,7 +11,7 @@ import '../services/app_logger.dart';
 import '../services/update_service.dart';
 import '../state/app_state.dart';
 import 'log_viewer_page.dart';
-import 'settings_subpages.dart' show DevPage;
+import 'settings_subpages.dart' show DevPage, SettingsDetailScaffold;
 
 /// 仿 Kazumi 关于页：开源 / 外部链接 / 存储与日志 / 应用更新 / 开发者。
 class AboutPage extends StatefulWidget {
@@ -30,103 +30,92 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     final s = context.l10n;
     final state = context.watch<AppState>();
-    return Scaffold(
-      appBar: AppBar(title: Text(s.aboutTitle)),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+    return SettingsDetailScaffold(
+      title: s.aboutTitle,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1000),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _AboutSection(
-                    title: s.aboutOpenSource,
-                    children: [
-                      _AboutTile(
-                        icon: Icons.gavel_rounded,
-                        title: s.aboutLicense,
-                        description: s.aboutLicenseDesc,
-                        onTap: () => _showLicense(context),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  _AboutSection(
-                    title: s.aboutExternal,
-                    children: [
-                      _AboutTile(
-                        icon: Icons.home_rounded,
-                        title: s.aboutProjectHome,
-                        description: s.aboutProjectHomeDesc,
-                        value: _projectHost(state.projectHomeUrl),
-                        editable: true,
-                        onTap: () => _editProjectHome(context, state),
-                      ),
-                      _AboutTile(
-                        icon: Icons.insights_rounded,
-                        title: s.aboutOpenUsage,
-                        description: s.aboutOpenUsageDesc,
-                        onTap: () => _openUsage(state),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  _AboutSection(
-                    title: s.aboutData,
-                    children: [
-                      _AboutTile(
-                        icon: Icons.folder_open_rounded,
-                        title: s.aboutDataDir,
-                        description: s.aboutDataDirDesc,
-                        onTap: _openDataDir,
-                      ),
-                      _AboutTile(
-                        icon: Icons.receipt_long_rounded,
-                        title: s.aboutLogs,
-                        description: s.aboutLogsDesc,
-                        onTap: () => _push(context, const LogViewerPage()),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  _AboutSection(
-                    title: s.aboutUpdate,
-                    children: [
-                      _AboutTile(
-                        icon: Icons.system_update_rounded,
-                        title: s.aboutCurrentVersion,
-                        value: kAppVersion,
-                        onTap: _handleVersionTap,
-                      ),
-                      _AboutTile(
-                        icon: Icons.update_rounded,
-                        title: s.updateCheck,
-                        description: s.updateCheckDesc,
-                        value: _checkingUpdate ? s.updateChecking : null,
-                        onTap: _checkingUpdate ? () {} : _checkUpdate,
-                      ),
-                    ],
-                  ),
-                  if (state.devMode) ...[
-                    const SizedBox(height: 12),
-                    _AboutSection(
-                      title: s.aboutDevSection,
-                      children: [
-                        _AboutTile(
-                          icon: Icons.developer_mode_rounded,
-                          title: s.devTitle,
-                          description: s.devModeDesc,
-                          onTap: () => _push(context, const DevPage()),
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
+          _AboutSection(
+            title: s.aboutOpenSource,
+            children: [
+              _AboutTile(
+                icon: Icons.gavel_rounded,
+                title: s.aboutLicense,
+                description: s.aboutLicenseDesc,
+                onTap: () => _showLicense(context),
               ),
-            ),
+            ],
           ),
+          const SizedBox(height: 12),
+          _AboutSection(
+            title: s.aboutExternal,
+            children: [
+              _AboutTile(
+                icon: Icons.home_rounded,
+                title: s.aboutProjectHome,
+                description: s.aboutProjectHomeDesc,
+                value: 'GitHub',
+                onTap: () => _openUrl(kProjectHomeUrl),
+              ),
+              _AboutTile(
+                icon: Icons.insights_rounded,
+                title: s.aboutOpenUsage,
+                description: s.aboutOpenUsageDesc,
+                onTap: () => _openUsage(state),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _AboutSection(
+            title: s.aboutData,
+            children: [
+              _AboutTile(
+                icon: Icons.folder_open_rounded,
+                title: s.aboutDataDir,
+                description: s.aboutDataDirDesc,
+                onTap: _openDataDir,
+              ),
+              _AboutTile(
+                icon: Icons.receipt_long_rounded,
+                title: s.aboutLogs,
+                description: s.aboutLogsDesc,
+                onTap: () => _push(context, const LogViewerPage()),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _AboutSection(
+            title: s.aboutUpdate,
+            children: [
+              _AboutTile(
+                icon: Icons.system_update_rounded,
+                title: s.aboutCurrentVersion,
+                value: kAppVersion,
+                onTap: _handleVersionTap,
+              ),
+              _AboutTile(
+                icon: Icons.update_rounded,
+                title: s.updateCheck,
+                description: s.updateCheckDesc,
+                value: _checkingUpdate ? s.updateChecking : null,
+                onTap: _checkingUpdate ? () {} : _checkUpdate,
+              ),
+            ],
+          ),
+          if (state.devMode) ...[
+            const SizedBox(height: 12),
+            _AboutSection(
+              title: s.aboutDevSection,
+              children: [
+                _AboutTile(
+                  icon: Icons.developer_mode_rounded,
+                  title: s.devTitle,
+                  description: s.devModeDesc,
+                  onTap: () => _push(context, const DevPage()),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -169,31 +158,6 @@ class _AboutPageState extends State<AboutPage> {
       applicationVersion: kAppVersion,
       applicationLegalese: 'GNU General Public License v3.0',
     );
-  }
-
-  Future<void> _editProjectHome(
-    BuildContext context,
-    AppState state,
-  ) async {
-    final s = context.l10n;
-    final result = await showDialog<_ProjectHomeResult>(
-      context: context,
-      builder: (_) => _ProjectHomeDialog(
-        initialUrl: state.projectHomeUrl,
-        placeholder: s.projectHomePlaceholder,
-        invalidMessage: s.projectHomeInvalid,
-      ),
-    );
-    if (result == null || !context.mounted) return;
-    if (result.action == _ProjectHomeAction.open) {
-      await _openUrl(result.url);
-      return;
-    }
-    await state.setProjectHomeUrl(result.url);
-    if (!context.mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(s.projectHomeSaved)));
   }
 
   Future<void> _checkUpdate() async {
@@ -266,19 +230,10 @@ class _AboutPageState extends State<AboutPage> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label: ',
-          style: TextStyle(color: scheme.onSurfaceVariant),
-        ),
+        Text('$label: ', style: TextStyle(color: scheme.onSurfaceVariant)),
         Expanded(child: Text(value)),
       ],
     );
-  }
-
-  String _projectHost(String url) {
-    final uri = Uri.tryParse(url);
-    if (uri == null || uri.host.isEmpty) return 'GitHub';
-    return uri.host;
   }
 
   void _handleVersionTap() {
@@ -363,14 +318,12 @@ class _AboutTile extends StatelessWidget {
     required this.onTap,
     this.description,
     this.value,
-    this.editable = false,
   });
 
   final IconData icon;
   final String title;
   final String? description;
   final String? value;
-  final bool editable;
   final VoidCallback onTap;
 
   @override
@@ -412,105 +365,9 @@ class _AboutTile extends StatelessWidget {
                 ),
               ),
             ],
-            if (editable) ...[
-              const SizedBox(width: 8),
-              Icon(
-                Icons.edit_outlined,
-                size: 16,
-                color: scheme.onSurfaceVariant,
-              ),
-            ],
           ],
         ),
       ),
-    );
-  }
-}
-
-enum _ProjectHomeAction { open, save }
-
-class _ProjectHomeResult {
-  const _ProjectHomeResult({required this.url, required this.action});
-
-  final String url;
-  final _ProjectHomeAction action;
-}
-
-class _ProjectHomeDialog extends StatefulWidget {
-  const _ProjectHomeDialog({
-    required this.initialUrl,
-    required this.placeholder,
-    required this.invalidMessage,
-  });
-
-  final String initialUrl;
-  final String placeholder;
-  final String invalidMessage;
-
-  @override
-  State<_ProjectHomeDialog> createState() => _ProjectHomeDialogState();
-}
-
-class _ProjectHomeDialogState extends State<_ProjectHomeDialog> {
-  late final TextEditingController _controller;
-  String? _error;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.initialUrl);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final s = context.l10n;
-    return AlertDialog(
-      title: Text(s.aboutProjectHome),
-      content: TextField(
-        controller: _controller,
-        autofocus: true,
-        keyboardType: TextInputType.url,
-        decoration: InputDecoration(
-          hintText: widget.placeholder,
-          errorText: _error,
-        ),
-        onSubmitted: (_) => _finish(_ProjectHomeAction.save),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(s.cancel),
-        ),
-        OutlinedButton(
-          onPressed: () => _finish(_ProjectHomeAction.open),
-          child: Text(s.open),
-        ),
-        FilledButton(
-          onPressed: () => _finish(_ProjectHomeAction.save),
-          child: Text(s.save),
-        ),
-      ],
-    );
-  }
-
-  void _finish(_ProjectHomeAction action) {
-    final raw = _controller.text.trim();
-    final uri = Uri.tryParse(raw);
-    if (raw.isEmpty ||
-        uri == null ||
-        !(uri.scheme == 'http' || uri.scheme == 'https') ||
-        uri.host.isEmpty) {
-      setState(() => _error = widget.invalidMessage);
-      return;
-    }
-    Navigator.of(context).pop(
-      _ProjectHomeResult(url: raw, action: action),
     );
   }
 }

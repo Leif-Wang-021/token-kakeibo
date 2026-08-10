@@ -38,10 +38,10 @@ class _ModelPageState extends State<ModelPage> {
     return Scaffold(
       body: SafeArea(
         top: true,
-        bottom: false,
+        bottom: true,
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 40),
           children: [
             if (state.session == null)
               Padding(

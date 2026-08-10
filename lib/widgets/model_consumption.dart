@@ -243,19 +243,121 @@ class _ModelRow extends StatelessWidget {
     final color = ModelColors.forModel(summary.model);
     final percent = total <= 0 ? 0.0 : summary.totalTokens / total;
     final dark = Theme.of(context).brightness == Brightness.dark;
+    final tokenText = _fmt(summary.inputTokens + summary.outputTokens);
+    final cacheText = summary.cacheTokens > 0
+        ? '+${_fmt(summary.cacheTokens)}'
+        : null;
 
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 620) {
+          return _buildCompact(
+            scheme: scheme,
+            color: color,
+            percent: percent,
+            tokenText: tokenText,
+            cacheText: cacheText,
+            dark: dark,
+          );
+        }
+        return _buildWide(
+          constraints: constraints,
+          scheme: scheme,
+          color: color,
+          percent: percent,
+          tokenText: tokenText,
+          cacheText: cacheText,
+          dark: dark,
+        );
+      },
+    );
+  }
+
+  Widget _buildCompact({
+    required ColorScheme scheme,
+    required Color color,
+    required double percent,
+    required String tokenText,
+    required String? cacheText,
+    required bool dark,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              _dot(color),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  summary.model,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                tokenText,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: scheme.onSurface,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _progress(color: color, percent: percent, dark: dark),
+          const SizedBox(height: 6),
+          Row(
+            children: [
+              Text(
+                '${(percent * 100).toStringAsFixed(1)}%',
+                style: TextStyle(fontSize: 12, color: scheme.onSurfaceVariant),
+              ),
+              const Spacer(),
+              if (cacheText != null)
+                Text(
+                  cacheText,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFFFF9F0A),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWide({
+    required BoxConstraints constraints,
+    required ColorScheme scheme,
+    required Color color,
+    required double percent,
+    required String tokenText,
+    required String? cacheText,
+    required bool dark,
+  }) {
+    final width = constraints.maxWidth;
+    final modelWidth = (width * 0.24).clamp(120.0, 200.0).toDouble();
+    final percentWidth = (width * 0.12).clamp(56.0, 110.0).toDouble();
+    final tokenWidth = (width * 0.16).clamp(72.0, 130.0).toDouble();
+    final cacheWidth = (width * 0.12).clamp(56.0, 110.0).toDouble();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 9),
       child: Row(
         children: [
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          ),
+          _dot(color),
           const SizedBox(width: 10),
           SizedBox(
-            width: 190,
+            width: modelWidth,
             child: Text(
               summary.model,
               overflow: TextOverflow.ellipsis,
@@ -263,30 +365,12 @@ class _ModelRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 14),
-          // 细进度条（350ms 过渡动画）
           Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(3),
-              child: TweenAnimationBuilder<double>(
-                tween: Tween(begin: 0, end: percent),
-                duration: const Duration(milliseconds: 350),
-                curve: Curves.easeOut,
-                builder: (context, value, _) => LinearProgressIndicator(
-                  value: value.clamp(0, 1),
-                  minHeight: 6,
-                  backgroundColor: dark
-                      ? const Color(0xFF2C2C2E)
-                      : const Color(0xFFE5E5EA),
-                  valueColor: AlwaysStoppedAnimation(
-                    color.withValues(alpha: 0.85),
-                  ),
-                ),
-              ),
-            ),
+            child: _progress(color: color, percent: percent, dark: dark),
           ),
           const SizedBox(width: 14),
           SizedBox(
-            width: 110,
+            width: percentWidth,
             child: Text(
               '${(percent * 100).toStringAsFixed(1)}%',
               textAlign: TextAlign.right,
@@ -294,11 +378,10 @@ class _ModelRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 14),
-          // token 数：输入+输出 主数字（固定宽右对齐）
           SizedBox(
-            width: 130,
+            width: tokenWidth,
             child: Text(
-              _fmt(summary.inputTokens + summary.outputTokens),
+              tokenText,
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontSize: 13,
@@ -308,21 +391,51 @@ class _ModelRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          // 橙色缓存（固定宽占位，无缓存也保留空间 → 各行列完全对齐）
           SizedBox(
-            width: 110,
-            child: summary.cacheTokens > 0
-                ? Text(
-                    '+${_fmt(summary.cacheTokens)}',
+            width: cacheWidth,
+            child: cacheText == null
+                ? null
+                : Text(
+                    cacheText,
                     textAlign: TextAlign.right,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
-                      color: const Color(0xFFFF9F0A),
+                      color: Color(0xFFFF9F0A),
                     ),
-                  )
-                : null,
+                  ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _dot(Color color) {
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+    );
+  }
+
+  Widget _progress({
+    required Color color,
+    required double percent,
+    required bool dark,
+  }) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(3),
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: percent),
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOut,
+        builder: (context, value, _) => LinearProgressIndicator(
+          value: value.clamp(0, 1),
+          minHeight: 6,
+          backgroundColor: dark
+              ? const Color(0xFF2C2C2E)
+              : const Color(0xFFE5E5EA),
+          valueColor: AlwaysStoppedAnimation(color.withValues(alpha: 0.85)),
+        ),
       ),
     );
   }

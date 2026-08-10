@@ -1,7 +1,7 @@
 ﻿; Token家计薄 安装脚本（Inno Setup 6）
 #define MyAppName "Token家计薄"
 #define MyAppNameEn "Token Kakeibo"
-#define MyAppVersion "1.2.0"
+#define MyAppVersion "1.2.1"
 #define MyAppPublisher "Token Kakeibo"
 #define MyAppExeName "token_kakeibo.exe"
 

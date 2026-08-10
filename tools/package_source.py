@@ -5,7 +5,7 @@ import os
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "dist", "TokenKakeibo-1.2.0-macos-source.zip")
+OUT = os.path.join(ROOT, "dist", "TokenKakeibo-1.2.1-macos-source.zip")
 
 EXCLUDED_DIRS = {
     ".git",

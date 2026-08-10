@@ -41,6 +41,17 @@
 - 根据用户要求，README 截图已移除，截图文件归档在工作区 `archive/unused_assets/screenshots/`。
 - 完成后推送 GitHub，并发布 Windows / Android / 源码 Release。
 
+### 0.5 用户反馈修正（等待推送）
+- 设置-关于-项目主页改为点击直接打开 GitHub 仓库，不再允许填写自定义地址。
+- 关于页与其他设置二级页统一使用 `SettingsDetailScaffold`，修复“关于”标题大小不一致。
+- 模型页窄屏改为紧凑卡片布局：模型名、token 数、进度条、百分比分层展示，避免右侧截断和底部重叠。
+- 新增 `refresh_rate`，在支持 120Hz / ProMotion 的设备上自动解锁最高刷新率。
+
+### 0.6 2026-08-11 v1.2.1 发布
+- 版本号统一升级为 `1.2.1`。
+- Windows 安装包、Android APK、macOS 源码包已重新构建并放入 `dist/`。
+- 用户确认后提交、推送 GitHub，并创建 `v1.2.1` Release。
+
 ---
 
 ## 0. 2026-08-10 UI 重构（Kazumi 风格 + 和风字体）

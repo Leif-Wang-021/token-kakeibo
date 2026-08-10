@@ -206,7 +206,7 @@ class L10n {
     'aboutLogsDesc': '查看最近的应用日志',
     'aboutOpenDir': '打开数据目录',
     'aboutProjectHome': '项目主页',
-    'aboutProjectHomeDesc': '项目源码与 Release 地址，点击填写或打开',
+    'aboutProjectHomeDesc': '项目源码与 Release 地址',
     'aboutUpdate': '应用更新',
     'aboutCurrentVersion': '当前版本',
     'updateCheck': '检查更新',
@@ -219,14 +219,8 @@ class L10n {
     'updateReleaseNotes': '更新内容',
     'updateOpenRelease': '打开 Release',
     'updateFailed': '检查更新失败，请稍后重试',
-    'projectHomePlaceholder': 'https://github.com/...',
-    'projectHomeSaved': '项目主页已保存',
-    'projectHomeInvalid': '请输入有效的 http(s) 地址',
-    'open': '打开',
-    'save': '保存',
     'devDisable': '关闭开发者模式',
     'devDisableDesc': '退出开发者模式并隐藏开发者选项',
-
   };
 
   static const _zhHant = <String, String>{
@@ -389,7 +383,7 @@ class L10n {
     'aboutLogsDesc': '查看最近的應用日誌',
     'aboutOpenDir': '開啟資料目錄',
     'aboutProjectHome': '專案首頁',
-    'aboutProjectHomeDesc': '專案原始碼與 Release 位址，點擊填寫或開啟',
+    'aboutProjectHomeDesc': '專案原始碼與 Release 位址',
     'aboutUpdate': '應用程式更新',
     'aboutCurrentVersion': '目前版本',
     'updateCheck': '檢查更新',
@@ -402,14 +396,8 @@ class L10n {
     'updateReleaseNotes': '更新內容',
     'updateOpenRelease': '開啟 Release',
     'updateFailed': '檢查更新失敗，請稍後重試',
-    'projectHomePlaceholder': 'https://github.com/...',
-    'projectHomeSaved': '專案首頁已儲存',
-    'projectHomeInvalid': '請輸入有效的 http(s) 位址',
-    'open': '開啟',
-    'save': '儲存',
     'devDisable': '關閉開發者模式',
     'devDisableDesc': '退出開發者模式並隱藏開發者選項',
-
   };
 
   static const _ja = <String, String>{
@@ -572,7 +560,7 @@ class L10n {
     'aboutLogsDesc': '最近のアプリログを表示',
     'aboutOpenDir': 'データディレクトリを開く',
     'aboutProjectHome': 'プロジェクトホーム',
-    'aboutProjectHomeDesc': 'ソースコードと Release の URL。タップで編集・表示',
+    'aboutProjectHomeDesc': 'ソースコードと Release の URL',
     'aboutUpdate': 'アプリ更新',
     'aboutCurrentVersion': '現在のバージョン',
     'updateCheck': '更新を確認',
@@ -585,14 +573,8 @@ class L10n {
     'updateReleaseNotes': '更新内容',
     'updateOpenRelease': 'Release を開く',
     'updateFailed': '更新確認に失敗しました。後でもう一度お試しください',
-    'projectHomePlaceholder': 'https://github.com/...',
-    'projectHomeSaved': 'プロジェクトホームを保存しました',
-    'projectHomeInvalid': '有効な http(s) URL を入力してください',
-    'open': '開く',
-    'save': '保存',
     'devDisable': '開発者モードをオフ',
     'devDisableDesc': '開発者モードを終了し、開発者オプションを隠す',
-
   };
 
   static const _en = <String, String>{
@@ -756,7 +738,7 @@ class L10n {
     'aboutLogsDesc': 'View recent application logs',
     'aboutOpenDir': 'Open data directory',
     'aboutProjectHome': 'Project home',
-    'aboutProjectHomeDesc': 'Source code and Release URL; tap to edit or open',
+    'aboutProjectHomeDesc': 'Source code and Release URL',
     'aboutUpdate': 'App updates',
     'aboutCurrentVersion': 'Current version',
     'updateCheck': 'Check for Updates',
@@ -769,14 +751,8 @@ class L10n {
     'updateReleaseNotes': 'Release notes',
     'updateOpenRelease': 'Open Release',
     'updateFailed': 'Could not check for updates. Please try again later',
-    'projectHomePlaceholder': 'https://github.com/...',
-    'projectHomeSaved': 'Project home saved',
-    'projectHomeInvalid': 'Enter a valid http(s) URL',
-    'open': 'Open',
-    'save': 'Save',
     'devDisable': 'Disable developer mode',
     'devDisableDesc': 'Exit developer mode and hide developer options',
-
   };
 
   Map<String, String> get _strings => switch (locale) {
@@ -974,11 +950,6 @@ class L10n {
   String get updateReleaseNotes => t('updateReleaseNotes');
   String get updateOpenRelease => t('updateOpenRelease');
   String get updateFailed => t('updateFailed');
-  String get projectHomePlaceholder => t('projectHomePlaceholder');
-  String get projectHomeSaved => t('projectHomeSaved');
-  String get projectHomeInvalid => t('projectHomeInvalid');
-  String get open => t('open');
-  String get save => t('save');
   String get devDisable => t('devDisable');
   String get devDisableDesc => t('devDisableDesc');
 
@@ -996,8 +967,18 @@ class L10n {
   String monthLabel(int year, int month) {
     const zh = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     const enShort = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return switch (locale) {
       AppLocale.zhHans || AppLocale.zhHant => '$year年${zh[month - 1]}月',
@@ -1049,7 +1030,17 @@ class L10n {
   static String chartTooltip(double v) => '\$${v.toStringAsFixed(2)}';
 
   static const _enMonthsShort = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 }
