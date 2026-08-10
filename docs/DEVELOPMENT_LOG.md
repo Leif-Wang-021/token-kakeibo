@@ -36,9 +36,9 @@
 - 主项目只保留 Windows、Android、macOS 三个目标。
 
 ### 0.4 文档与发布
-- `README.md` 重写为详细版：功能介绍、截图、Vibe Coding 说明、Kazumi 借鉴声明、目录结构、构建方法、
+- `README.md` 重写为详细版：功能介绍、Vibe Coding 说明、Kazumi 借鉴声明、目录结构、构建方法、
   数据目录、许可证和免责声明。
-- `docs/screenshots/` 放入使用量浅色 / 深色、历史页和应用图标截图。
+- 根据用户要求，README 截图已移除，截图文件归档在工作区 `archive/unused_assets/screenshots/`。
 - 完成后推送 GitHub，并发布 Windows / Android / 源码 Release。
 
 ---

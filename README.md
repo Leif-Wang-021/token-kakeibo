@@ -8,12 +8,6 @@
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Android%20%7C%20macOS-blue)
 ![Flutter](https://img.shields.io/badge/Flutter-M3-3b82f6)
 
-## 截图
-
-| 使用量（浅色） | 使用量（深色） | 使用历史 |
-| --- | --- | --- |
-| ![使用量浅色](docs/screenshots/usage-light.png) | ![使用量深色](docs/screenshots/usage-dark.png) | ![使用历史](docs/screenshots/history.png) |
-
 ## 这是什么
 
 Token家计薄用于集中查看 **opencode.ai** 的 Go 套餐用量：
